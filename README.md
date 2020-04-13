@@ -1,7 +1,7 @@
 This project is based on an example and dataset from Data Science course developed at Berkeley (Data8.org).
 
 Nearest Neighbor Classification file contains:
-1.normalizeData = scales the data from 0 to 10 which gets rid of errors involving units
+1.normalizeData = scales the data from 0 to 1 which gets rid of errors involving units
 2.graphdata = graphs a scatter plot of the new scaled data
 3.createTestCase = creates a random new point to classify
 4.calculateDistanceArray = takes the distance between the new point and all of the scaled data
