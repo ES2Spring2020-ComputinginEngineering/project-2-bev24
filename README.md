@@ -12,12 +12,21 @@ Knearestnumber file contains:
 kNearestNeighborClassifier = takes the distance between the new point and the other data points, compares it to k amount of closest data points to determine its classification
 
 Kmeanscluster file contains:
-1.select(K)= Creates k amounts of random points to become centroids
-the function returns a point 
-2.assign(centroids, hemoglobin, glucose)= Assigns the original data points to the centroids that it is closer to
+1.normalizeData(glucose,hemoglobin,classification)= scales the data of glucose and hemoglobin from 0 to 1
+The function returns values of the datasets of glucose and hemoglobin scaled between 0 and 1
 
-3.update(assignments)= finds the mean of the points within each group of centroids and makes it the new centroid
-4.iteration(assignments, newassignments)= repeats the steps until the new centroid and previous centroid values are the same.
+2.select(K)= Creates k amounts of random points to become centroids
+the function returns k number of points(2 numbers within the scale)
+
+3.assign(centroids, hemoglobin, glucose)= Assigns the original data points to the centroids that it is closer to
+The function returns the value of the index of the centroid
+
+4.update(assignments)= finds the mean of the points within each group of centroids and makes it the new centroid
+The function returns the value of the mean of the groups
+
+5.iteration(assignments, newassignments)= repeats the steps until the new centroid and previous centroid values are the same.
+The function returns the values of the final centroids data points
+
 
 All information required to use python code:
 
@@ -25,10 +34,3 @@ All information required to use python code:
 The number must be odd so there will never be a tie between two data points.
 2.For Kmeanscluster, k is how many centroids are going to be in the graph. Assign a number to k.
 
-
-k means clustering algorithm: 
-
-1. pick 3 ks to be your centroids
-2. assign values to the closest by using the Euclidean distance
-3. find new centroids by taking avgerage of all points and making it the centroid
-4. 
