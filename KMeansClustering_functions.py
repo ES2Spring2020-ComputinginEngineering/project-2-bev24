@@ -11,16 +11,25 @@ def openckdfile():
 
 glucose, hemoglobin, classification = openckdfile()
 
+def normalizeData(glucose,hemoglobin,classification):
+    hemoglobin= (hemoglobin-3.1)/(17.8-3.1)
+    hemoglobin_scaled = hemoglobin
+    glucose= (glucose - 70)/(490-70)
+    glucose_scaled = glucose
+    return glucose_scaled, hemoglobin_scaled
+
+glucose_scaled, hemoglobin_scaled=normalizeData(glucose,hemoglobin,classification)
+
 def select(K):
     return np.random.random((K, 2))
 
-def assign(centroids, hemoglobin, glucose):
+def assign(centroids, hemoglobin_scaled, glucose_scaled):
     K = centroids.shape[0]
     distances = np.zeros((K, len(hemoglobin)))
     for i in range(K):
         g = centroids[i,1]
         h = centroids[i,0]
-        distances[i] = np.sqrt((hemoglobin-h)**2+(glucose-g)**2) 
+        distances[i] = np.sqrt((hemoglobin_scaled-h)**2+(glucose_scaled-g)**2) 
     assignments = np.argmin(distances, axis = 0)  
     return assignments
 
@@ -34,13 +43,7 @@ def iteration(assignments, newassignments):
         update(assignments)
     if newassignments == assignments:
         return newassignments
-        
-centroids = select(10)
-assignments = assign(centroids, hemoglobin, glucose)
-assign(centroids, hemoglobin, glucose)
-
-K = 2
-select(K)
+    
 
     
     
