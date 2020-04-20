@@ -1,18 +1,17 @@
 #Please place your FUNCTION code for step 4 here.
 import KMeansClustering_functions as kmc #Use kmc to call your functions
+import matplotlib.pyplot as plt
+import numpy as np
+k=2
+glucose, hemoglobin, classification = kmc.openckdfile()
 
+glucose_scaled, hemoglobin_scaled = kmc.normalizeData(glucose,hemoglobin,classification)
 
-normalizeData(glucose,hemoglobin,classification)
+centroids = kmc.select(k) 
+assignments = kmc.assign(centroids, hemoglobin_scaled, glucose_scaled)
 
-glucose_scaled, hemoglobin_scaled = normalizeData(glucose,hemoglobin,classification)
+centroids = kmc.update(assignments,k, hemoglobin_scaled,glucose_scaled)
 
-assignments = assign(centroids, hemoglobin_scaled, glucose_scaled)
-
-newassignments = update(assignments)
-K = 2
-select(K)
-centroids = select(10)   
-assignments = assign(centroids, hemoglobin_scaled, glucose_scaled)    
 
 def graphingKMeans(glucose_scaled, hemoglobin_scaled, assignments, centroids):
     plt.figure()

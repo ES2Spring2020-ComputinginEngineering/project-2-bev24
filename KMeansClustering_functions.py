@@ -18,7 +18,7 @@ def normalizeData(glucose,hemoglobin,classification):
     glucose_scaled = glucose
     return glucose_scaled, hemoglobin_scaled
 
-glucose_scaled, hemoglobin_scaled=normalizeData(glucose,hemoglobin,classification)
+glucose_scaled, hemoglobin_scaled =normalizeData(glucose,hemoglobin,classification)
 
 def select(K):
     return np.random.random((K, 2))
@@ -33,18 +33,24 @@ def assign(centroids, hemoglobin_scaled, glucose_scaled):
     assignments = np.argmin(distances, axis = 0)  
     return assignments
 
-def update(assignments):
-    newassignments = np.mean(assignments)
-    return newassignments
 
-def iteration(assignments, newassignments):
-    while newassignments != assignments:
-        assign(centroids, hemoglobin, glucose)
-        update(assignments)
-    if newassignments == assignments:
-        return newassignments
-    
+def update(assignments,k, hemoglobin_scaled,glucose_scaled):
+    new_centroids = np.zeros((k,2))
+    for i in range(k):
+        allhemocluster = hemoglobin_scaled[assignments == i]
+        new_centroids[i,0] = np.mean(allhemocluster)
+        allglucosecluster = glucose_scaled[assignments == i]
+        new_centroids[i,1] = np.mean(allglucosecluster)
+    return new_centroids
 
+def iteration(k, new_centroids,centroids):
+    while True:
+        assignments = assign(centroids, hemoglobin_scaled, glucose_scaled)  
+        new_centroids = update(assignments,k, hemoglobin_scaled,glucose_scaled)
+        if np.array_equal(centroids, new_centroids):
+            break
+        centroids = new_centroids 
+    return centroids
     
     
     
